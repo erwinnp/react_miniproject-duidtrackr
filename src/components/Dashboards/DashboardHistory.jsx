@@ -2,7 +2,12 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from '../Modal';
 
-const DashboardHistory = () => {
+const DashboardHistory = ({
+  transactionData,
+  deleteTransaction,
+  refetchEarn,
+  refetchSpend,
+}) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -40,24 +45,62 @@ const DashboardHistory = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className='bg-white border-b border-color-dark text-color-dark text-[16px]'>
-              <th scope='row' className='py-4 px-6 font-medium'>
-                Name
-              </th>
-              <td className='py-4 px-6'>Spending/Earning</td>
-              <td className='py-4 px-6'>Category</td>
-              <td className='py-4 px-6'>$2999</td>
-              <td className='py-4 px-6'>Date</td>
-              <td className='py-4 px-6 flex'>
-                <button
-                  className='btn btn-secondary mr-3'
-                  onClick={() => setShowModal(!showModal)}
-                >
-                  Edit
-                </button>
-                <button className='btn btn-danger'>Delete</button>
-              </td>
-            </tr>
+            {transactionData?.duidtrackr_transactions.map((transaction) => (
+              <tr className='bg-white border-b border-color-dark text-color-dark text-[16px]'>
+                <th scope='row' className='py-4 px-6 font-medium'>
+                  {transaction.transactionName}
+                </th>
+                {transaction.transactionType === 'Spending' ? (
+                  <td className='py-4 px-6'>
+                    <p className='text-white bg-color-danger text-center p-1 rounded-md uppercase'>
+                      {transaction.transactionType}
+                    </p>
+                  </td>
+                ) : (
+                  <td className='py-4 px-6'>
+                    <p className='text-white bg-color-primary text-center p-1 rounded-md uppercase'>
+                      {transaction.transactionType}
+                    </p>
+                  </td>
+                )}
+                <td className='py-4 px-6'>
+                  {transaction.category.categoryName}
+                </td>
+                {transaction.transactionType === 'Spending' ? (
+                  <td className='py-4 px-6 text-color-danger font-semibold'>
+                    Rp. {transaction.spending.spendingAmount}
+                  </td>
+                ) : (
+                  <td className='py-4 px-6 text-color-primary font-semibold'>
+                    Rp. {transaction.earning.earningAmount}
+                  </td>
+                )}
+                <td className='py-4 px-6'>{transaction.dateAdded}</td>
+                <td className='py-4 px-6 flex'>
+                  <button
+                    className='btn btn-secondary mr-3'
+                    onClick={() => setShowModal(!showModal)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className='btn btn-danger'
+                    onClick={() => {
+                      deleteTransaction(
+                        transaction.transactionID,
+                        transaction.category.categoryID,
+                        transaction.earning.earningID,
+                        transaction.spending.spendingID
+                      );
+                      refetchEarn;
+                      refetchSpend;
+                    }}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
         <Modal isVisible={showModal} onClose={() => setShowModal(!showModal)} />

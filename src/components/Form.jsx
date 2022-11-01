@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
 
-const Form = () => {
+const Form = ({ handleChange, handleSubmit }) => {
   return (
     <div className='w-full mx-auto flex items-center justify-center'>
       <div className='bg-color-primary px-6 lg:px-16 py-[20px] lg:py-[30px] rounded-md shadow-md'>
-        <form className='flex flex-col gap-[12px] text-left lg:w-[480px]'>
+        <form
+          className='flex flex-col gap-[12px] text-left lg:w-[480px]'
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+        >
           <div className='flex flex-col'>
             <label
               htmlFor='transactionName'
@@ -77,8 +81,11 @@ const Form = () => {
           </div>
 
           <div className='flex flex-col gap-4 justify-center lg:mt-[24px] items-center mt-[24px]'>
-            <button className='btn border-white border-2 text-white w-[240px]'>
-              <Link to='/dashboard'>Add Transaction</Link>
+            <button
+              type='submit'
+              className='btn border-white border-2 text-white w-[240px]'
+            >
+              Add Transaction
             </button>
             <button className='btn btn-danger text-white w-[240px]'>
               <Link to='/dashboard'>Back To Dashboard</Link>

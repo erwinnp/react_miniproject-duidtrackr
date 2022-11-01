@@ -3,7 +3,7 @@ import IconEarning from '../../assets/img/earning.png';
 import IconWallet from '../../assets/img/wallet.png';
 import RecapCard from './RecapCard';
 
-const DashboardRecap = () => {
+const DashboardRecap = ({ totalBalance, totalEarn, totalSpend }) => {
   return (
     <div className='pt-[100px] pb-[40px] text-white bg-color-primary'>
       <div className='flex flex-col justify-center items-center lg:w-[1200px] lg:items-start lg:mx-auto'>
@@ -20,14 +20,16 @@ const DashboardRecap = () => {
           </div>
           <div className='text-[32px] font-semibold text-color-dark'>
             <p
-            // className={balance < 0 ? 'text-color-danger' : 'text-color-dark'}
+              className={
+                totalBalance < 0 ? 'text-color-danger' : 'text-color-dark'
+              }
             >
-              balanceIDR
+              {totalBalance}
             </p>
           </div>
         </div>
-        <RecapCard icon={IconEarning} type='Earnings' amount='earningIDR' />
-        <RecapCard icon={IconSpending} type='Spendings' amount='spendingIDR' />
+        <RecapCard icon={IconEarning} type='Earnings' amount={totalEarn} />
+        <RecapCard icon={IconSpending} type='Spendings' amount={totalSpend} />
       </div>
     </div>
   );
