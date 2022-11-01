@@ -1,18 +1,58 @@
-const Modal = ({
-  isVisible,
-  onClose,
-  handleChangeEdit,
-  handleSubmitEdit,
-  transactionData,
-}) => {
+import { useMutation } from '@apollo/client';
+import { useState } from 'react';
+import { UpdateTheTransaction } from '../configs/Mutations';
+import { GetAllTransaction } from '../configs/Queries';
+
+const Modal = ({ isVisible, onClose, transactionData }) => {
   if (!isVisible) return null;
 
   const handleClose = (e) => {
     if (e.target.id === 'modal') onClose();
   };
 
-  console.log(handleChangeEdit);
-  console.log(handleSubmitEdit);
+  const dataToEdit = transactionData.duidtrackr_transactions[0];
+
+  console.log(dataToEdit);
+
+  const [updateTransactionHistory] = useMutation(UpdateTheTransaction, {
+    refetchQueries: [GetAllTransaction],
+  });
+
+  const [editTransaction, setEditTransaction] = useState({
+    transactionName: '',
+    categoryName: 'Entertainment',
+    transactionType: 'Earning',
+    amount: '',
+    dateAdded: '',
+  });
+
+  const handleChangeEdit = (e) => {
+    const { name, value } = e.target;
+    setEditTransaction((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
+
+  const handleSubmitEdit = () => {
+    const newTransaction = {
+      transactionID: dataToEdit.transactionID,
+      categoryID: dataToEdit.category.categoryID,
+      earningID: dataToEdit.earning.earningID,
+      spendingID: dataToEdit.spending.spendingID,
+      transactionName: editTransaction.transactionName,
+      categoryName: editTransaction.categoryName,
+      transactionType: editTransaction.transactionType,
+      ...(editTransaction.transactionType === 'Spending'
+        ? { spendingAmount: editTransaction.amount }
+        : { spendingAmount: 0 }),
+      ...(editTransaction.transactionType === 'Earning'
+        ? { earningAmount: editTransaction.amount }
+        : { earningAmount: 0 }),
+      dateAdded: editTransaction.dateAdded,
+    };
+
+    updateTransactionHistory({ variables: newTransaction });
+  };
 
   return (
     <div
@@ -115,15 +155,8 @@ const Modal = ({
               <div className='flex justify-center lg:mt-[24px] items-center mt-[24px]'>
                 <button
                   type='submit'
-                  onClick={() => {
-                    updateTransaction(
-                      transactionData.transactionID,
-                      transactionData.category.categoryID,
-                      transactionData.earning.earningID,
-                      transactionData.spending.spendingID
-                    );
-                  }}
                   className='btn border-white border-2 text-white w-[240px]'
+                  onClick={handleSubmitEdit}
                 >
                   Edit Transaction
                 </button>

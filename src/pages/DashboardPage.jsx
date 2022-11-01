@@ -74,6 +74,7 @@ const DashboardPage = () => {
         totalSpend={spendingIDR}
         totalEarn={earningIDR}
         totalBalance={balanceIDR}
+        balance={balance}
       />
       <DashboardHistory
         transactionData={data}

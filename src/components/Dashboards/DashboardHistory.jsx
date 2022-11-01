@@ -103,7 +103,11 @@ const DashboardHistory = ({
             ))}
           </tbody>
         </table>
-        <Modal isVisible={showModal} onClose={() => setShowModal(!showModal)} />
+        <Modal
+          isVisible={showModal}
+          onClose={() => setShowModal(!showModal)}
+          transactionData={transactionData}
+        />
       </div>
     </div>
   );
