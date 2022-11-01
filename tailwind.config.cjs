@@ -4,9 +4,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        primary: 'Inter, sans-serif',
+        primary: 'Murecho, sans-serif',
       },
       fontWeight: {
+        thin: 100,
         extralight: 200,
         light: 300,
         regular: 400,
