@@ -44,6 +44,7 @@ const DashboardHistory = ({
           <tbody>
             {transactionData?.duidtrackr_transactions.map((transaction) => (
               <ListHistory
+                key={transaction.transactionID}
                 deleteTransaction={deleteTransaction}
                 refetchEarn={refetchEarn}
                 refetchSpend={refetchSpend}

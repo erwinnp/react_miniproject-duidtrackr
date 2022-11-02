@@ -5,7 +5,7 @@ import { GetAllTransaction } from '../configs/Queries';
 import Loading from './Loading';
 import Error from './Error';
 
-const Modal = ({ isVisible, onClose, transaction, refetchAll }) => {
+const Modal = ({ isVisible, onClose, transaction }) => {
   if (!isVisible) return null;
 
   const [updateHistory, { loading, error }] = useMutation(
@@ -31,23 +31,6 @@ const Modal = ({ isVisible, onClose, transaction, refetchAll }) => {
       return { ...prev, [name]: value };
     });
   };
-
-  const historyEdited = {
-    transactionID: transaction.transactionID,
-    categoryID: transaction.category.categoryID,
-    earningID: transaction.earning.earningID,
-    spendingID: transaction.spending.spendingID,
-    transactionName: edit.transactionName,
-    categoryName: edit.categoryName,
-    transactionType: edit.transactionType,
-    ...(edit.transactionType === 'Spending'
-      ? { spendingAmount: edit.amount }
-      : { spendingAmount: 0 }),
-    ...(edit.transactionType === 'Earning'
-      ? { earningAmount: edit.amount }
-      : { earningAmount: 0 }),
-  };
-  console.log(historyEdited);
 
   const handleEdit = () => {
     const historyEdited = {
@@ -78,7 +61,7 @@ const Modal = ({ isVisible, onClose, transaction, refetchAll }) => {
     >
       <div className='w-[280px] lg:w-[600px] flex flex-col'>
         <button
-          className='text-white text-xl place-self-end'
+          className='text-white text-xl place-self-end font-bold'
           onClick={() => onClose()}
         >
           X
@@ -177,7 +160,7 @@ const Modal = ({ isVisible, onClose, transaction, refetchAll }) => {
                   }}
                   className='btn border-white border-2 text-white w-[240px]'
                 >
-                  Edit Transaction
+                  Save
                 </button>
               </div>
             </form>
