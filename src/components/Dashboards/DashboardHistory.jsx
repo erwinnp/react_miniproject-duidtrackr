@@ -1,15 +1,13 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Modal from '../Modal';
+import ListHistory from './ListHistory';
 
 const DashboardHistory = ({
   transactionData,
   deleteTransaction,
   refetchEarn,
   refetchSpend,
+  refetchAll,
 }) => {
-  const [showModal, setShowModal] = useState(false);
-
   return (
     <div className='container mx-auto lg:max-w-[1200px]'>
       <div className='flex justify-between items-center pt-[32px] px-2'>
@@ -46,64 +44,16 @@ const DashboardHistory = ({
           </thead>
           <tbody>
             {transactionData?.duidtrackr_transactions.map((transaction) => (
-              <tr className='bg-white border-b border-color-dark text-color-dark text-[16px]'>
-                <th scope='row' className='py-4 px-6 font-medium'>
-                  {transaction.transactionName}
-                </th>
-                {transaction.transactionType === 'Spending' ? (
-                  <td className='py-4 px-6'>
-                    <p className='text-white bg-color-danger text-center p-1 rounded-md uppercase'>
-                      {transaction.transactionType}
-                    </p>
-                  </td>
-                ) : (
-                  <td className='py-4 px-6'>
-                    <p className='text-white bg-color-primary text-center p-1 rounded-md uppercase'>
-                      {transaction.transactionType}
-                    </p>
-                  </td>
-                )}
-                <td className='py-4 px-6'>
-                  {transaction.category.categoryName}
-                </td>
-                {transaction.transactionType === 'Spending' ? (
-                  <td className='py-4 px-6 text-color-danger font-semibold'>
-                    Rp. {transaction.spending.spendingAmount}
-                  </td>
-                ) : (
-                  <td className='py-4 px-6 text-color-primary font-semibold'>
-                    Rp. {transaction.earning.earningAmount}
-                  </td>
-                )}
-                <td className='py-4 px-6'>{transaction.dateAdded}</td>
-                <td className='py-4 px-6 flex'>
-                  <button
-                    className='btn btn-secondary mr-3'
-                    onClick={() => setShowModal(!showModal)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className='btn btn-danger'
-                    onClick={() => {
-                      deleteTransaction(
-                        transaction.transactionID,
-                        transaction.category.categoryID,
-                        transaction.earning.earningID,
-                        transaction.spending.spendingID
-                      );
-                      refetchEarn;
-                      refetchSpend;
-                    }}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
+              <ListHistory
+                deleteTransaction={deleteTransaction}
+                refetchEarn={refetchEarn}
+                refetchSpend={refetchSpend}
+                refetchAll={refetchAll}
+                transaction={transaction}
+              />
             ))}
           </tbody>
         </table>
-        <Modal isVisible={showModal} onClose={() => setShowModal(!showModal)} />
       </div>
     </div>
   );

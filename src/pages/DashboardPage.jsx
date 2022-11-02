@@ -11,7 +11,12 @@ import {
 } from '../configs/Queries';
 
 const DashboardPage = () => {
-  const { loading, data, error } = useQuery(GetAllTransaction);
+  const {
+    loading,
+    data,
+    error,
+    refetch: refetchAll,
+  } = useQuery(GetAllTransaction);
 
   const [deleteTransactionHistory, { loading: loadDelete, error: errDelete }] =
     useMutation(DeleteTransaction, { refetchQueries: [GetAllTransaction] });
@@ -80,6 +85,7 @@ const DashboardPage = () => {
         deleteTransaction={deleteTransaction}
         refetchEarn={refetchEarn()}
         refetchSpend={refetchSpend()}
+        refetchAll={refetchAll()}
       />
     </section>
   );

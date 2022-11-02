@@ -1,24 +1,80 @@
-const Modal = ({
-  isVisible,
-  onClose,
-  handleChangeEdit,
-  handleSubmitEdit,
-  transactionData,
-}) => {
+import { useMutation } from '@apollo/client';
+import { useState } from 'react';
+import { UpdateTheTransaction } from '../configs/Mutations';
+import { GetAllTransaction } from '../configs/Queries';
+import Loading from './Loading';
+import Error from './Error';
+
+const Modal = ({ isVisible, onClose, transaction, refetchAll }) => {
   if (!isVisible) return null;
 
-  const handleClose = (e) => {
-    if (e.target.id === 'modal') onClose();
+  const [updateHistory, { loading, error }] = useMutation(
+    UpdateTheTransaction,
+    { refetchQueries: GetAllTransaction }
+  );
+
+  const [edit, setEdit] = useState({
+    transactionName: '',
+    categoryName: 'Entertainment',
+    transactionType: 'Earning',
+    amount: '',
+    dateAdded: '',
+  });
+
+  if (loading) return <Loading />;
+  if (error) return <Error />;
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setEdit((prev) => {
+      return { ...prev, [name]: value };
+    });
   };
 
-  console.log(handleChangeEdit);
-  console.log(handleSubmitEdit);
+  const historyEdited = {
+    transactionID: transaction.transactionID,
+    categoryID: transaction.category.categoryID,
+    earningID: transaction.earning.earningID,
+    spendingID: transaction.spending.spendingID,
+    transactionName: edit.transactionName,
+    categoryName: edit.categoryName,
+    transactionType: edit.transactionType,
+    ...(edit.transactionType === 'Spending'
+      ? { spendingAmount: edit.amount }
+      : { spendingAmount: 0 }),
+    ...(edit.transactionType === 'Earning'
+      ? { earningAmount: edit.amount }
+      : { earningAmount: 0 }),
+  };
+  console.log(historyEdited);
+
+  const handleEdit = () => {
+    const historyEdited = {
+      transactionID: transaction.transactionID,
+      categoryID: transaction.category.categoryID,
+      earningID: transaction.earning.earningID,
+      spendingID: transaction.spending.spendingID,
+      transactionName: edit.transactionName,
+      categoryName: edit.categoryName,
+      transactionType: edit.transactionType,
+      ...(edit.transactionType === 'Spending'
+        ? { spendingAmount: edit.amount }
+        : { spendingAmount: 0 }),
+      ...(edit.transactionType === 'Earning'
+        ? { earningAmount: edit.amount }
+        : { earningAmount: 0 }),
+      dateAdded: edit.dateAdded,
+    };
+    console.log(historyEdited);
+
+    updateHistory({ variables: historyEdited });
+  };
 
   return (
     <div
       id='modal'
       className='fixed inset-0 bg-color-light bg-opacity-25 backdrop-blur-sm flex justify-center items-center'
-      onClick={handleClose}
     >
       <div className='w-[280px] lg:w-[600px] flex flex-col'>
         <button
@@ -31,8 +87,8 @@ const Modal = ({
           <div className='bg-color-primary px-6 lg:px-16 py-[20px] lg:py-[30px] rounded-md shadow-md border-2 border-white'>
             <form
               className='flex flex-col gap-[12px] text-left lg:w-[480px]'
-              onChange={handleChangeEdit}
-              onSubmit={handleSubmitEdit}
+              onChange={handleChange}
+              onSubmit={handleEdit}
             >
               <div className='flex flex-col'>
                 <label
@@ -114,14 +170,10 @@ const Modal = ({
 
               <div className='flex justify-center lg:mt-[24px] items-center mt-[24px]'>
                 <button
-                  type='submit'
+                  type='button'
                   onClick={() => {
-                    updateTransaction(
-                      transactionData.transactionID,
-                      transactionData.category.categoryID,
-                      transactionData.earning.earningID,
-                      transactionData.spending.spendingID
-                    );
+                    handleEdit();
+                    onClose();
                   }}
                   className='btn border-white border-2 text-white w-[240px]'
                 >
