@@ -3,7 +3,7 @@ import IconEarning from '../../assets/img/earning.png';
 import IconWallet from '../../assets/img/wallet.png';
 import RecapCard from './RecapCard';
 
-const DashboardRecap = ({ totalBalance, totalEarn, totalSpend }) => {
+const DashboardRecap = ({ totalBalance, totalEarn, totalSpend, balance }) => {
   return (
     <div className='pt-[100px] pb-[40px] text-white bg-color-primary'>
       <div className='flex flex-col justify-center items-center lg:w-[1200px] lg:items-start lg:mx-auto'>
@@ -20,9 +20,7 @@ const DashboardRecap = ({ totalBalance, totalEarn, totalSpend }) => {
           </div>
           <div className='text-[32px] font-semibold text-color-dark'>
             <p
-              className={
-                totalBalance < 0 ? 'text-color-danger' : 'text-color-dark'
-              }
+              className={balance < 0 ? 'text-color-danger' : 'text-color-dark'}
             >
               {totalBalance}
             </p>

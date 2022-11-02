@@ -6,7 +6,6 @@ const ListHistory = ({
   refetchEarn,
   refetchSpend,
   transaction,
-  refetchAll,
 }) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -50,7 +49,6 @@ const ListHistory = ({
           isVisible={showModal}
           onClose={() => setShowModal(!showModal)}
           transaction={transaction}
-          refetchAll={refetchAll}
         />
         <button
           className='btn btn-danger'

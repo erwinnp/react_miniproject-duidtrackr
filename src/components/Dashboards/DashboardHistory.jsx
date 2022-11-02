@@ -6,7 +6,6 @@ const DashboardHistory = ({
   deleteTransaction,
   refetchEarn,
   refetchSpend,
-  refetchAll,
 }) => {
   return (
     <div className='container mx-auto lg:max-w-[1200px]'>
@@ -48,7 +47,6 @@ const DashboardHistory = ({
                 deleteTransaction={deleteTransaction}
                 refetchEarn={refetchEarn}
                 refetchSpend={refetchSpend}
-                refetchAll={refetchAll}
                 transaction={transaction}
               />
             ))}
