@@ -49,7 +49,6 @@ const Modal = ({ isVisible, onClose, transaction }) => {
         : { earningAmount: 0 }),
       dateAdded: edit.dateAdded,
     };
-    console.log(historyEdited);
 
     updateHistory({ variables: historyEdited });
   };
