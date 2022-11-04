@@ -4,7 +4,11 @@ const RecapCard = ({ icon, type, amount }) => {
       <div>
         <img src={icon} alt='' className='w-[100px]' />
       </div>
-      <div className='text-color-dark'>
+      <div
+        className={
+          type === 'Spendings' ? 'text-color-danger' : 'text-color-primary'
+        }
+      >
         <h1 className='text-[32px] font-light'>{type}</h1>
         <p className='text-[20px] font-semibold'>{amount}</p>
       </div>

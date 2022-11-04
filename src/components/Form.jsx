@@ -22,6 +22,7 @@ const Form = ({ handleChange, handleSubmit }) => {
               id='transactionName'
               placeholder='Please type here...'
               className='input-field'
+              required
             />
           </div>
 
@@ -29,7 +30,12 @@ const Form = ({ handleChange, handleSubmit }) => {
             <label htmlFor='category' className='text-white py-1 text-[20px]'>
               Category
             </label>
-            <select name='categoryName' id='category' className='select-field'>
+            <select
+              name='categoryName'
+              id='category'
+              className='select-field'
+              required
+            >
               <option value='Entertainment'>Entertainment</option>
               <option value='Work'>Work</option>
               <option value='Lifestyle'>Lifestyle</option>
@@ -49,6 +55,7 @@ const Form = ({ handleChange, handleSubmit }) => {
               name='transactionType'
               id='transactionType'
               className='select-field'
+              required
             >
               <option value='Earning'>Earning</option>
               <option value='Spending'>Spending</option>
@@ -65,6 +72,7 @@ const Form = ({ handleChange, handleSubmit }) => {
               id='amount'
               placeholder='Please type here...'
               className='input-field'
+              required
             />
           </div>
 
@@ -77,6 +85,7 @@ const Form = ({ handleChange, handleSubmit }) => {
               name='dateAdded'
               id='date'
               className='input-field'
+              required
             />
           </div>
 

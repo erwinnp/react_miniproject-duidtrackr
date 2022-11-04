@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery, useSubscription } from '@apollo/client';
 import DashboardHistory from '../components/Dashboards/DashboardHistory';
 import DashboardRecap from '../components/Dashboards/DashboardRecap';
 import Error from '../components/Error';
@@ -9,9 +9,10 @@ import {
   sumEarnings,
   sumSpendings,
 } from '../configs/Queries';
+import { GetTransactionSubs } from '../configs/Subscriptions';
 
 const DashboardPage = () => {
-  const { loading, data, error } = useQuery(GetAllTransaction);
+  const { loading, data, error } = useSubscription(GetTransactionSubs);
 
   const [deleteTransactionHistory, { loading: loadDelete, error: errDelete }] =
     useMutation(DeleteTransaction, { refetchQueries: [GetAllTransaction] });
@@ -73,6 +74,7 @@ const DashboardPage = () => {
       <DashboardRecap
         totalSpend={spendingIDR}
         totalEarn={earningIDR}
+        balance={balance}
         totalBalance={balanceIDR}
       />
       <DashboardHistory
