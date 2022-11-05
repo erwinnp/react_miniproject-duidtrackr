@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Modal from '../Modal';
+import ModalDelete from '../ModalDelete';
 
 const ListHistory = ({
   deleteTransaction,
@@ -8,6 +9,7 @@ const ListHistory = ({
   transaction,
 }) => {
   const [showModal, setShowModal] = useState(false);
+  const [modalDel, setModalDel] = useState(false);
 
   return (
     <tr className='bg-white border-b border-color-dark text-color-dark text-[16px]'>
@@ -52,19 +54,28 @@ const ListHistory = ({
         />
         <button
           className='btn btn-danger'
-          onClick={() => {
-            deleteTransaction(
-              transaction.transactionID,
-              transaction.category.categoryID,
-              transaction.earning.earningID,
-              transaction.spending.spendingID
-            );
-            refetchEarn;
-            refetchSpend;
-          }}
+          // onClick={() => {
+          //   deleteTransaction(
+          //     transaction.transactionID,
+          //     transaction.category.categoryID,
+          //     transaction.earning.earningID,
+          //     transaction.spending.spendingID
+          //   );
+          //   refetchEarn;
+          //   refetchSpend;
+          // }}
+          onClick={() => setModalDel(!modalDel)}
         >
           Delete
         </button>
+        <ModalDelete
+          isVisible={modalDel}
+          onClose={() => setModalDel(!modalDel)}
+          transaction={transaction}
+          refetchEarn={refetchEarn}
+          refetchSpend={refetchSpend}
+          deleteTransaction={deleteTransaction}
+        />
       </td>
     </tr>
   );
