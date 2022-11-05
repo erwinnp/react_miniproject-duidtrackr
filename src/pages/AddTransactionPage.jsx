@@ -24,7 +24,8 @@ const AddTransactionPage = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const newTransaction = {
       transactionName: newHistory.transactionName,
       categoryName: newHistory.categoryName,
