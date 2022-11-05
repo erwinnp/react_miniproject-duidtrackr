@@ -4,13 +4,18 @@ import { UpdateTheTransaction } from '../configs/Mutations';
 import { GetAllTransaction } from '../configs/Queries';
 import Loading from './Loading';
 import Error from './Error';
+import { toast } from 'react-toastify';
 
 const Modal = ({ isVisible, onClose, transaction }) => {
   if (!isVisible) return null;
 
   const [updateHistory, { loading, error }] = useMutation(
     UpdateTheTransaction,
-    { refetchQueries: GetAllTransaction }
+    {
+      refetchQueries: GetAllTransaction,
+      onCompleted: () => toast.success('Successfully Update The Transaction'),
+      onError: () => toast.error('Error Update The Transaction'),
+    }
   );
 
   const [edit, setEdit] = useState({

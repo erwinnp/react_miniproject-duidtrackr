@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useSubscription } from '@apollo/client';
+import { toast } from 'react-toastify';
 import DashboardHistory from '../components/Dashboards/DashboardHistory';
 import DashboardRecap from '../components/Dashboards/DashboardRecap';
 import Error from '../components/Error';
@@ -15,7 +16,11 @@ const DashboardPage = () => {
   const { loading, data, error } = useSubscription(GetTransactionSubs);
 
   const [deleteTransactionHistory, { loading: loadDelete, error: errDelete }] =
-    useMutation(DeleteTransaction, { refetchQueries: [GetAllTransaction] });
+    useMutation(DeleteTransaction, {
+      refetchQueries: [GetAllTransaction],
+      onCompleted: () => toast.success('Successfully Delete The Transaction'),
+      onError: () => toast.error('Error Delete The Transaction'),
+    });
 
   const {
     loading: loadSpend,

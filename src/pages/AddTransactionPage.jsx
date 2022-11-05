@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import Form from '../components/Form';
 import { AddTransaction } from '../configs/Mutations';
 import { GetAllTransaction } from '../configs/Queries';
@@ -7,6 +8,7 @@ import { GetAllTransaction } from '../configs/Queries';
 const AddTransactionPage = () => {
   const [addNewTransaction] = useMutation(AddTransaction, {
     refetchQueries: GetAllTransaction,
+    onCompleted: () => toast.success('Successfully Add New Transaction'),
   });
 
   const [newHistory, setNewHistory] = useState({
