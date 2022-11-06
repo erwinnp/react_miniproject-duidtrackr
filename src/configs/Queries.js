@@ -46,3 +46,17 @@ export const sumEarnings = gql`
     }
   }
 `;
+
+export const getAccount = gql`
+  query GetAccount($email: String!, $password: String!) {
+    duidtrackr_users(
+      limit: 1
+      where: { userEmail: { _eq: $email }, userPassword: { _eq: $password } }
+    ) {
+      userID
+      fullName
+      userEmail
+      userPassword
+    }
+  }
+`;

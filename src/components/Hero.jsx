@@ -15,7 +15,7 @@ const Hero = () => {
               We provide what you need to manage your finance. Time to make
               complete and simple expense in your life.
             </p>
-            <Link to='/dashboard'>
+            <Link to='/login'>
               <button className='btn btn-primary mb-[32px]'>Get Started</button>
             </Link>
           </div>

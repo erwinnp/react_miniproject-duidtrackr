@@ -7,17 +7,14 @@ const NavbarMobile = () => {
         <li>
           <Link to='/'>Home</Link>
         </li>
-        <li>
-          <Link to='/dashboard'>Dashboard</Link>
-        </li>
       </ul>
       <div className='border-b-2 border-[#fff] my-5 w-1/2'></div>
       <ul className='flex flex-col gap-4 text-[#fff]'>
         <li className=''>
-          <Link>Login</Link>
+          <Link to='/login'>Login</Link>
         </li>
         <li className=''>
-          <Link>Register</Link>
+          <Link to='/register'>Register</Link>
         </li>
       </ul>
     </nav>

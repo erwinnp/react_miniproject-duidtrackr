@@ -14,21 +14,16 @@ const Navbar = () => {
         <a href='' className='text-color-primary text-[24px] font-bold'>
           Duid<span className='text-color-dark'>Trackr.</span>
         </a>
-        <ul className='hidden lg:flex gap-[40px] text-color-primary'>
-          <li>
-            <Link to='/'>Home</Link>
-          </li>
-          <li>
-            <Link to='/dashboard'>Dashboard</Link>
-          </li>
-        </ul>
       </div>
       <div className='hidden lg:flex gap-[40px] text-color-primary'>
+        <button>
+          <Link to='/'>Home</Link>
+        </button>
         <button className='btn'>
-          <Link to='/'>Login</Link>
+          <Link to='/login'>Login</Link>
         </button>
         <button className='btn btn-primary'>
-          <Link>Register</Link>
+          <Link to='/register'>Register</Link>
         </button>
       </div>
       {/* mobile navbar */}

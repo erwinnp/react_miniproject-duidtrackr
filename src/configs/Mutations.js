@@ -108,3 +108,26 @@ export const UpdateTheTransaction = gql`
     }
   }
 `;
+
+export const CreateAccount = gql`
+  mutation CreateNewAccount(
+    $fullName: String!
+    $email: String!
+    $password: String!
+  ) {
+    insert_duidtrackr_users(
+      objects: {
+        fullName: $fullName
+        userEmail: $email
+        userPassword: $password
+      }
+    ) {
+      returning {
+        userID
+        fullName
+        userEmail
+        userPassword
+      }
+    }
+  }
+`;
