@@ -12,7 +12,7 @@ export const loginAuth = {
     }
   },
   setLogout: (navigate) => {
-    jsCookie.remove('email');
+    jsCookie.remove('email', { path: '/' });
     navigate('/');
   },
 };

@@ -13,7 +13,7 @@ const RegisterPage = () => {
   });
 
   const [createUserAccount, { data, loading }] = useMutation(CreateAccount, {
-    onCompleted: () => toast.success('Successfully Add New Transaction'),
+    onCompleted: () => toast.success('Successfully Create New Account'),
   });
 
   let navigate = useNavigate();
@@ -45,13 +45,19 @@ const RegisterPage = () => {
     <>
       <div className='w-full h-screen m-auto flex items-center justify-center'>
         <div className='bg-color-primary px-6 lg:px-16 py-[20px] lg:py-[30px] rounded-md shadow-md'>
+          <h1 className='text-center lg:text-[42px] text-white mb-[12px]'>
+            Regiter New Account
+          </h1>
           <form
             className='flex flex-col gap-[12px] text-left lg:w-[480px]'
             onSubmit={handleCreateAcc}
             onChange={handleChangeAcc}
           >
             <div className='flex flex-col'>
-              <label htmlFor='fullName' className='text-white py-1 text-[20px]'>
+              <label
+                htmlFor='fullName'
+                className='text-white py-1 lg:text-[20px]'
+              >
                 Full Name
               </label>
               <input
@@ -65,7 +71,7 @@ const RegisterPage = () => {
             </div>
 
             <div className='flex flex-col'>
-              <label htmlFor='email' className='text-white py-1 text-[20px]'>
+              <label htmlFor='email' className='text-white py-1 lg:text-[20px]'>
                 Email
               </label>
               <input
@@ -79,7 +85,10 @@ const RegisterPage = () => {
             </div>
 
             <div className='flex flex-col'>
-              <label htmlFor='password' className='text-white py-1 text-[20px]'>
+              <label
+                htmlFor='password'
+                className='text-white py-1 lg:text-[20px]'
+              >
                 Password
               </label>
               <input
