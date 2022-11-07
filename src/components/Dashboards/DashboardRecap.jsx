@@ -2,12 +2,15 @@ import IconSpending from '../../assets/img/spending.png';
 import IconEarning from '../../assets/img/earning.png';
 import IconWallet from '../../assets/img/wallet.png';
 import RecapCard from './RecapCard';
+import Cookies from 'js-cookie';
 
 const DashboardRecap = ({ totalBalance, totalEarn, totalSpend, balance }) => {
+  const email = Cookies.get('email');
+
   return (
     <div className='pt-[100px] pb-[40px] text-white bg-color-primary'>
       <div className='flex flex-col justify-center items-center lg:w-[1200px] lg:items-start lg:mx-auto'>
-        <h1 className='text-[32px] font-semibold'>Hello, username</h1>
+        <h1 className='text-[32px] font-semibold'>Hello, {email}</h1>
         <p className='font-light'>Transaction Info</p>
       </div>
       <div className='flex flex-col items-center gap-4 mt-[32px] lg:flex-row justify-between lg:max-w-[1200px] mx-auto'>
