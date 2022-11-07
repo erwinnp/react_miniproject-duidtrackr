@@ -40,8 +40,6 @@ const LoginPage = () => {
 
   if (loading) return <Loading />;
 
-  console.log(data);
-
   return (
     <section className='h-screen w-screen flex justify-center items-center'>
       <div className='container min-h[700px] mx-auto flex justify-around items-center lg:w-[1200px]'>

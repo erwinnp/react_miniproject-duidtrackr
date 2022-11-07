@@ -41,8 +41,6 @@ const DashboardPage = () => {
     refetch: refetchEarn,
   } = useQuery(sumEarnings, { variables: { userEmail } });
 
-  console.log(dataEarn);
-
   const deleteTransaction = (idTransaction, idCategory, idEarn, idSpend) => {
     deleteTransactionHistory({
       variables: {

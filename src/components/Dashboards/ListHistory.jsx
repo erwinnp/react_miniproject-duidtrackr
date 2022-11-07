@@ -54,16 +54,6 @@ const ListHistory = ({
         />
         <button
           className='btn btn-danger'
-          // onClick={() => {
-          //   deleteTransaction(
-          //     transaction.transactionID,
-          //     transaction.category.categoryID,
-          //     transaction.earning.earningID,
-          //     transaction.spending.spendingID
-          //   );
-          //   refetchEarn;
-          //   refetchSpend;
-          // }}
           onClick={() => setModalDel(!modalDel)}
         >
           Delete
