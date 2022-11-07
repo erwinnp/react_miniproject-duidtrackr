@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeModal, openModal } from '../../store/features/modalSlice';
 import Modal from '../Modal';
 import ModalDelete from '../ModalDelete';
 
@@ -8,7 +10,8 @@ const ListHistory = ({
   refetchSpend,
   transaction,
 }) => {
-  const [showModal, setShowModal] = useState(false);
+  const { isVisible } = useSelector((store) => store.modal);
+  const dispatch = useDispatch();
   const [modalDel, setModalDel] = useState(false);
 
   return (
@@ -43,13 +46,17 @@ const ListHistory = ({
       <td className='py-4 px-6 flex'>
         <button
           className='btn btn-secondary mr-3'
-          onClick={() => setShowModal(!showModal)}
+          onClick={() => {
+            dispatch(openModal());
+          }}
         >
           Edit
         </button>
         <Modal
-          isVisible={showModal}
-          onClose={() => setShowModal(!showModal)}
+          isVisible={isVisible}
+          onClose={() => {
+            dispatch(closeModal());
+          }}
           transaction={transaction}
         />
         <button
