@@ -12,7 +12,7 @@ const NavbarDashboard = () => {
         </a>
       </div>
       <div className='hidden lg:flex gap-[40px] text-color-primary'>
-        <button className='btn btn-primary'>
+        <button className='btn btn-danger'>
           <Link to='/'>Logout</Link>
         </button>
       </div>

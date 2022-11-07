@@ -25,17 +25,17 @@ const Index = () => {
             <FeatureList
               icon={FeatIcon1}
               title='Add Transaction'
-              subtitle='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Augue orci.'
+              subtitle='Create your new transaction history with some categories real-time.'
             />
             <FeatureList
               icon={FeatIcon2}
               title='Edit/Delete Transaction'
-              subtitle='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Augue orci.'
+              subtitle='You can simplify edit or delete transaction history real-time.'
             />
             <FeatureList
               icon={FeatIcon3}
               title='Recap All Transaction'
-              subtitle='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Augue orci.'
+              subtitle='We provide all recap of Spendings, Earnings, and Balance real-time.'
             />
           </div>
         </div>
