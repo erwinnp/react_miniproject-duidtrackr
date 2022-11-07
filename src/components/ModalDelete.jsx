@@ -8,6 +8,8 @@ const ModalDelete = ({
 }) => {
   if (!isVisible) return null;
 
+  console.log(transaction);
+
   return (
     <div
       id='modal'

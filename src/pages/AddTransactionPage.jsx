@@ -1,12 +1,13 @@
 import { useMutation } from '@apollo/client';
+import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import Form from '../components/Form';
-import { AddTransaction } from '../configs/Mutations';
+import { AddUserTransaction } from '../configs/Mutations';
 import { GetAllTransaction } from '../configs/Queries';
 
 const AddTransactionPage = () => {
-  const [addNewTransaction] = useMutation(AddTransaction, {
+  const [addNewTransaction] = useMutation(AddUserTransaction, {
     refetchQueries: GetAllTransaction,
     onCompleted: () => toast.success('Successfully Add New Transaction'),
   });
@@ -17,6 +18,9 @@ const AddTransactionPage = () => {
     transactionType: 'Earning',
     amount: '',
     dateAdded: '',
+    userEmail: '',
+    spendEmail: '',
+    earnEmail: '',
   });
 
   const handleChange = (e) => {
@@ -38,7 +42,14 @@ const AddTransactionPage = () => {
       ...(newHistory.transactionType === 'Earning'
         ? { earningAmount: newHistory.amount }
         : { earningAmount: 0 }),
+      ...(newHistory.transactionType === 'Spending' && {
+        spendEmail: Cookies.get('email'),
+      }),
+      ...(newHistory.transactionType === 'Earning' && {
+        earnEmail: Cookies.get('email'),
+      }),
       dateAdded: newHistory.dateAdded,
+      userEmail: Cookies.get('email'),
     };
 
     addNewTransaction({ variables: newTransaction });

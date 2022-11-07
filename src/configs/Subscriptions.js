@@ -22,3 +22,27 @@ export const GetTransactionSubs = gql`
     }
   }
 `;
+
+export const GetUserTransaction = gql`
+  subscription UserTransaction($userEmail: String = "") {
+    duidtrackr_transactions(where: { userEmail: { _eq: $userEmail } }) {
+      transactionID
+      transactionName
+      transactionType
+      category {
+        categoryID
+        categoryName
+      }
+      earning {
+        earningID
+        earningAmount
+      }
+      spending {
+        spendingID
+        spendingAmount
+      }
+      dateAdded
+      userEmail
+    }
+  }
+`;
