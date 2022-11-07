@@ -22,30 +22,35 @@ export const DeleteTransaction = gql`
   }
 `;
 
-export const AddTransaction = gql`
+export const AddUserTransaction = gql`
   mutation AddNewTransaction(
     $transactionName: String = ""
     $transactionType: String = ""
     $categoryName: String = ""
-    $earningAmount: Int
-    $spendingAmount: Int
+    $earningAmount: Int = 10
+    $spendingAmount: Int = 10
     $dateAdded: date = ""
+    $userEmail: String = ""
+    $earnEmail: String = ""
+    $spendEmail: String = ""
   ) {
     insert_duidtrackr_transactions(
       objects: {
         transactionName: $transactionName
         transactionType: $transactionType
         category: { data: { categoryName: $categoryName } }
-        earning: { data: { earningAmount: $earningAmount } }
-        spending: { data: { spendingAmount: $spendingAmount } }
+        earning: {
+          data: { earningAmount: $earningAmount, earnEmail: $earnEmail }
+        }
+        spending: {
+          data: { spendingAmount: $spendingAmount, spendEmail: $spendEmail }
+        }
         dateAdded: $dateAdded
+        userEmail: $userEmail
       }
     ) {
       returning {
         transactionID
-        spendingID
-        earningID
-        categoryID
         transactionName
         transactionType
         category {
@@ -53,11 +58,14 @@ export const AddTransaction = gql`
         }
         earning {
           earningAmount
+          earnEmail
         }
         spending {
           spendingAmount
+          spendEmail
         }
         dateAdded
+        userEmail
       }
     }
   }
@@ -105,6 +113,29 @@ export const UpdateTheTransaction = gql`
       _set: { spendingAmount: $spendingAmount }
     ) {
       spendingAmount
+    }
+  }
+`;
+
+export const CreateAccount = gql`
+  mutation CreateNewAccount(
+    $fullName: String!
+    $email: String!
+    $password: String!
+  ) {
+    insert_duidtrackr_users(
+      objects: {
+        fullName: $fullName
+        userEmail: $email
+        userPassword: $password
+      }
+    ) {
+      returning {
+        userID
+        fullName
+        userEmail
+        userPassword
+      }
     }
   }
 `;

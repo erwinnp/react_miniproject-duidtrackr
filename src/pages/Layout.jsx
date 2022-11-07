@@ -1,15 +1,17 @@
 import { Outlet } from 'react-router-dom';
-import Header from '../components/Header';
+import HeaderDashboard from '../components/Header/HeaderDashboard';
+import { loginAuth } from '../utils/authHelpers';
 
 const Layout = () => {
-  return (
-    <>
-      <Header />
-      <main>
-        <Outlet />
-      </main>
-    </>
-  );
+  if (loginAuth.setAuth())
+    return (
+      <>
+        <HeaderDashboard />
+        <main>
+          <Outlet />
+        </main>
+      </>
+    );
 };
 
 export default Layout;

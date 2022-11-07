@@ -7,7 +7,6 @@ const ModalDelete = ({
   onClose,
 }) => {
   if (!isVisible) return null;
-
   return (
     <div
       id='modal'

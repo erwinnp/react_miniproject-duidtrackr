@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useSubscription } from '@apollo/client';
+import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import DashboardHistory from '../components/Dashboards/DashboardHistory';
 import DashboardRecap from '../components/Dashboards/DashboardRecap';
@@ -10,10 +11,14 @@ import {
   sumEarnings,
   sumSpendings,
 } from '../configs/Queries';
-import { GetTransactionSubs } from '../configs/Subscriptions';
+import { GetUserTransaction } from '../configs/Subscriptions';
 
 const DashboardPage = () => {
-  const { loading, data, error } = useSubscription(GetTransactionSubs);
+  const userEmail = Cookies.get('email');
+
+  const { loading, data, error } = useSubscription(GetUserTransaction, {
+    variables: { userEmail },
+  });
 
   const [deleteTransactionHistory, { loading: loadDelete, error: errDelete }] =
     useMutation(DeleteTransaction, {
@@ -27,14 +32,14 @@ const DashboardPage = () => {
     data: dataSpend,
     error: errSpend,
     refetch: refetchSpend,
-  } = useQuery(sumSpendings);
+  } = useQuery(sumSpendings, { variables: { userEmail } });
 
   const {
     loading: loadEarn,
     data: dataEarn,
     error: errEarn,
     refetch: refetchEarn,
-  } = useQuery(sumEarnings);
+  } = useQuery(sumEarnings, { variables: { userEmail } });
 
   const deleteTransaction = (idTransaction, idCategory, idEarn, idSpend) => {
     deleteTransactionHistory({

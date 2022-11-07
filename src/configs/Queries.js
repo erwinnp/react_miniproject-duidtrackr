@@ -19,13 +19,14 @@ export const GetAllTransaction = gql`
         spendingAmount
       }
       dateAdded
+      userEmail
     }
   }
 `;
 
 export const sumSpendings = gql`
-  query sumAllSpendings {
-    duidtrackr_spendings_aggregate {
+  query sumUserSpendings($userEmail: String = "") {
+    duidtrackr_spendings_aggregate(where: { spendEmail: { _eq: $userEmail } }) {
       aggregate {
         sum {
           spendingAmount
@@ -36,13 +37,27 @@ export const sumSpendings = gql`
 `;
 
 export const sumEarnings = gql`
-  query sumAllEarnings {
-    duidtrackr_earnings_aggregate {
+  query sumUserEarnings($userEmail: String = "") {
+    duidtrackr_earnings_aggregate(where: { earnEmail: { _eq: $userEmail } }) {
       aggregate {
         sum {
           earningAmount
         }
       }
+    }
+  }
+`;
+
+export const getAccount = gql`
+  query GetAccount($email: String!, $password: String!) {
+    duidtrackr_users(
+      limit: 1
+      where: { userEmail: { _eq: $email }, userPassword: { _eq: $password } }
+    ) {
+      userID
+      fullName
+      userEmail
+      userPassword
     }
   }
 `;
