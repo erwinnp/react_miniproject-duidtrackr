@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const FooterWidget = () => {
   return (
     <section className='flex items-center justify-center px-[12px] my-[60px] lg:mt-[220px] lg:px-0 lg:max-w-[1200px] lg:justify-between mx-auto'>
@@ -5,8 +7,12 @@ const FooterWidget = () => {
         Get ready to manage your expense?
       </div>
       <div className='flex flex-col lg:flex-row items-center justify-center gap-[16px] lg:gap-[40px]'>
-        <button className='btn btn-primary'>Start Now</button>
-        <button className='text-color-primary'>Register Now</button>
+        <Link to='/login'>
+          <button className='btn btn-primary'>Start Now</button>
+        </Link>
+        <Link to='/register'>
+          <button className='text-color-primary'>Register Now</button>
+        </Link>
       </div>
     </section>
   );
